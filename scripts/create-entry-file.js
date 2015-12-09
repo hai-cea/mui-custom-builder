@@ -47,4 +47,4 @@ else {
 fileContent.push("\tinjectTapEventPlugin();\n");
 fileContent.push("})();\n");
 
-fs.writeFileSync('webpack-builder/' + process.argv[2] + '/entry.js', fileContent.join(''));
+fs.writeFileSync('webpack-builder/temp/' + process.argv[2] + '/entry.js', fileContent.join(''));

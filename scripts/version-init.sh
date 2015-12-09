@@ -11,11 +11,11 @@ WEBPACK_STRING='webpack@1.11.0'
 # echo $BASE_PATH
 # echo $FULL_FOLDER_PATH
 
+# maybe now the surrounding if isn't even necessary
 if ! [ -d $FULL_FOLDER_PATH ] ; then
 	# echo 'folder not found'
 	mkdir $FULL_FOLDER_PATH
 	cd $FULL_FOLDER_PATH
-	cp ../../webpack-configs/uglify-external-source-map.config.js ./uglify-external-source-map.config.js
 	# pwd
 
 	npm init -y
