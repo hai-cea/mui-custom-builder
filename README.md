@@ -28,7 +28,7 @@ http://localhost:3000/?v=0.13.4&components=AppBar,AutoComplete,RaisedButton
 http://localhost:3000/?v=0.13.3&components=ALL
 ```
 
-If everything goes smoothly, you'll see a message in the browser asking you to check the build folder of the version you specified. So, navigate to `webpack-builder/x-x-x/build` and you will find `bundle.js` and `bundle.js.map` (here `x-x-x` is the version number with hyphens instead of periods).
+If everything goes smoothly, the browser should download a `bundle.js` file for you (which is the custom build output file). In the future, more options such as *minifying* and *including source map* are to come. Then, downloading a zip file would probably be a better idea.
 
 #### Using the build in your HTML
 
