@@ -45,7 +45,7 @@ app.get('/', function (req, res) {
 		promiseFromChildProcess(exec('bash scripts/version-init.sh ' + req.query.v))
 		.then(function (result) {
 			// console.log(result);
-			// console.log("Initialized MUI version " + req.query.v);
+			console.log("Initialized MUI version " + req.query.v);
 			masterHash[masterFolder] = true;
 
 			return normalHandler(req, res);
