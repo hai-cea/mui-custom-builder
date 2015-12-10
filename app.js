@@ -44,8 +44,8 @@ app.get('/', function (req, res) {
 
 		promiseFromChildProcess(exec('bash scripts/version-init.sh ' + req.query.v))
 		.then(function (result) {
-			console.log(result);
-			console.log("Initialized MUI version " + req.query.v);
+			// console.log(result);
+			// console.log("Initialized MUI version " + req.query.v);
 			masterHash[masterFolder] = true;
 
 			return normalHandler(req, res);
@@ -77,7 +77,7 @@ app.get('/', function (req, res) {
 				clearInterval(checker);
 				normalHandler(req, res)
 				.catch(function (err) {
-					console.error('ERROR: ', err);
+					console.log('ERROR: ', err);
 					res.send("oops something went wrong: " + err);
 				});	
 			}

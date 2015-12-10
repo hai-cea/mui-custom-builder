@@ -9,20 +9,20 @@ var execFile = require('child_process').execFile;
 module.exports = function (req, res) {
 	return promiseFromChildProcess(exec('bash scripts/create-temp-request-dir.sh ' + req.query.v.replace(/[.]/g, '-') + ' ' + req.requestId))
 	.then(function (result) {
-		console.log(result);
-		console.log("Created temp folder for request " + req.requestId);
+		// console.log(result);
+		// console.log("Created temp folder for request " + req.requestId);
 
 		return promiseFromChildProcess(execFile('scripts/create-entry-file.js', [req.requestId, req.query.components.replace(/\s/g, '')]));
 	})
 	.then(function (result) {
-		console.log(result);
-		console.log('Created entry.js file for webpack build for request ' + req.requestId);
+		// console.log(result);
+		// console.log('Created entry.js file for webpack build for request ' + req.requestId);
 
 		return promiseFromChildProcess(exec('bash scripts/kickoff-webpack-build.sh ' + req.requestId));
 	})
 	.then(function (result) {
-		console.log(result);
-		console.log('Produced build output for request ' + req.requestId);
+		// console.log(result);
+		// console.log('Produced build output for request ' + req.requestId);
 
 		// create zip file and send it
 		// var zip = new AdmZip();

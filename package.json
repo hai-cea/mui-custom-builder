@@ -8,6 +8,9 @@
   },
   "author": "Shaurya Arora (http://shaurya.me)",
   "license": "ISC",
+  "engines": {
+    "node": "0.12.7"
+  },
   "dependencies": {
     "adm-zip": "^0.4.7",
     "bluebird": "^3.0.6",
