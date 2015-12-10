@@ -1,6 +1,9 @@
 var express = require('express');
-var exec = require('child-process-promise').exec;
-var execFile = require('child-process-promise').execFile;
+
+var promiseFromChildProcess = require('./promise-from-child-process.js');
+var exec = require('child_process').exec;
+var execFile = require('child_process').execFile;
+
 var fs = require('fs');
 var cuid = require('cuid');
 var normalHandler = require('./normal-handler.js');
@@ -31,32 +34,34 @@ app.use(requestId);
 
 // configure route
 app.get('/', function (req, res) {
+	// res.write('This may take a couple minutes (for real)..');
+
 	var masterFolder = req.query.v.replace(/[.]/g, '-');
 
 	if(masterHash[masterFolder] === undefined) {
 		//set to false and initialize first
 		masterHash[masterFolder] = false;
 
-		exec('bash scripts/version-init.sh ' + req.query.v)
+		promiseFromChildProcess(exec('bash scripts/version-init.sh ' + req.query.v))
 		.then(function (result) {
-			console.log(result.stderr);
+			console.log(result);
 			console.log("Initialized MUI version " + req.query.v);
 			masterHash[masterFolder] = true;
 
 			return normalHandler(req, res);
 		})
-		.fail(function (err) {
+		.catch(function (err) {
 			console.error('ERROR: ', err);
-			return res.send("oops something went wrong: " + err);
+			res.send("oops something went wrong: " + err);
 		});
 	}
 
 	else if(masterHash[masterFolder] === true) {
 		//continue as usual
-		return normalHandler(req, res)
-		.fail(function (err) {
+		normalHandler(req, res)
+		.catch(function (err) {
 			console.error('ERROR: ', err);
-			return res.send("oops something went wrong: " + err);
+			res.send("oops something went wrong: " + err);
 		});	
 	}
 
@@ -70,10 +75,10 @@ app.get('/', function (req, res) {
 			else {
 				//clear interval and continue as usual
 				clearInterval(checker);
-				return normalHandler(req, res)
-				.fail(function (err) {
+				normalHandler(req, res)
+				.catch(function (err) {
 					console.error('ERROR: ', err);
-					return res.send("oops something went wrong: " + err);
+					res.send("oops something went wrong: " + err);
 				});	
 			}
 		}, 3000);

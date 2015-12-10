@@ -3,7 +3,9 @@
 //ideally have multiple component maps for different versions
 //in case there are any changes in require statements
 
-var fs = require('fs');
+var Promise = require('bluebird');
+var writeFileAsync = Promise.promisify(require('fs').writeFile);
+// var fs = require('fs');
 var map = require('./component-map.js');
 
 // console.log(process.argv[2]);
@@ -23,9 +25,9 @@ if(process.argv[3] === 'ALL') {
 
 else {
 	components = process.argv[3].split(',');
-	components.forEach(function(comp) {
-		fileContent.push("const " + comp + " = require('material-ui/lib/" + map[comp] + "');\n");
-	});
+	for(var i = 0; i < components.length; i++) {
+		fileContent.push("const " + components[i] + " = require('material-ui/lib/" + map[components[i]] + "');\n");
+	}
 }
 
 fileContent.push("\n(function () {\n");
@@ -38,13 +40,13 @@ if(process.argv[3] === 'ALL') {
 
 else {
 	fileContent.push("\twindow.mui = {\n");
-	components.forEach(function(comp) {
-		fileContent.push("\t\t" + comp + ": " + comp + ",\n");
-	});
+	for(var i = 0; i < components.length; i++) {
+		fileContent.push("\t\t" + components[i] + ": " + components[i] + ",\n");
+	}
 	fileContent.push("\t};\n");
 }
 
 fileContent.push("\tinjectTapEventPlugin();\n");
 fileContent.push("})();\n");
 
-fs.writeFileSync('webpack-builder/temp/' + process.argv[2] + '/entry.js', fileContent.join(''));
+return writeFileAsync('webpack-builder/temp/' + process.argv[2] + '/entry.js', fileContent.join(''));
