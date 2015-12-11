@@ -1,1 +1,1 @@
-web: node app.js
+web: npm i && cd webpack-builder/0-13-4-source/ && npm i && cd ../.. && node app.js

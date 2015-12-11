@@ -8,20 +8,11 @@ module.exports = {
   resolve: {
     extensions: ["", ".js", ".jsx"]
   },
-  //Render source-map file for final build
-  devtool: 'source-map',
   output: {
     path: buildPath,
     filename: "bundle.js"
   },
   plugins: [
-    //Minify the bundle
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        //supresses warnings, usually from module minification
-        warnings: false
-      }
-    }),
     //Allows error warnings but does not stop compiling. Will remove when eslint is added
     new webpack.NoErrorsPlugin()
   ],

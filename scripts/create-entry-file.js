@@ -13,10 +13,15 @@ var map = require('./component-map.js');
 // console.log(map);
 
 //build file contents
-var fileContent = [], components;
-fileContent.push("const React = require('react');\n");
-fileContent.push("const ReactDOM = require('react-dom');\n");
-fileContent.push("const injectTapEventPlugin = require('react-tap-event-plugin');\n\n");
+var components, fileContent = [
+	"const React = require('react');\n",
+	"const ReactDOM = require('react-dom');\n",
+	"const injectTapEventPlugin = require('react-tap-event-plugin');\n\n"
+];
+
+// fileContent.push("const React = require('react');\n");
+// fileContent.push("const ReactDOM = require('react-dom');\n");
+// fileContent.push("const injectTapEventPlugin = require('react-tap-event-plugin');\n\n");
 
 //are all components required?
 if(process.argv[3] === 'ALL') {
@@ -30,9 +35,9 @@ else {
 	}
 }
 
-fileContent.push("\n(function () {\n");
-fileContent.push("\twindow.React = React;\n");
-fileContent.push("\twindow.ReactDOM = ReactDOM\n");
+fileContent.push("\n(function () {\n\twindow.React = React;\n\twindow.ReactDOM = ReactDOM\n");
+// fileContent.push("\twindow.React = React;\n");
+// fileContent.push("\twindow.ReactDOM = ReactDOM\n");
 
 if(process.argv[3] === 'ALL') {
 	fileContent.push("\twindow.mui = mui\n");
@@ -46,7 +51,7 @@ else {
 	fileContent.push("\t};\n");
 }
 
-fileContent.push("\tinjectTapEventPlugin();\n");
-fileContent.push("})();\n");
+fileContent.push("\tinjectTapEventPlugin();\n})();\n");
+// fileContent.push("})();\n");
 
 return writeFileAsync('webpack-builder/temp/' + process.argv[2] + '/entry.js', fileContent.join(''));
