@@ -95,7 +95,7 @@ app.get('/', function (req, res) {
 	normalHandler(req, res)
 	.catch(function (error) {
 		console.log("Error in app.js catch: ", error);
-		res.send("Error in app.js catch: ", error);
+		res.status(500).send("Error in app.js catch: ", error);
 	});
 });
 
