@@ -41,13 +41,13 @@ module.exports = function (req, res) {
 		res.download('webpack-builder/temp/' + req.requestId + '/build/bundle.js', req.requestId + '.js', function (err) {
 			if(err) {
 				console.log("Error in download call: ", err);
-				res.send(400, "Error in download call: " + err);
+				res.status(400).send("Error in download call: " + err);
 			}
 			promiseFromChildProcess(exec('rm -R webpack-builder/temp/' + req.requestId))
 			.then(function (result) {})
 			.catch(function (error) {
 				console.log("Error in deleting folder: ", error);
-				res.send(400, "Error in deleting folder: " + error);
+				res.status(400).send("Error in deleting folder: " + error);
 			});
 		});
 	});	
