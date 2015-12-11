@@ -38,7 +38,7 @@ module.exports = function (req, res) {
 
 		// right now, just send single bundle file - worry about zipping later
 		// res.download('webpack-builder/temp/' + req.requestId + '/build/bundle.js', req.requestId + '.js');
-		res.status(200).download('webpack-builder/temp/' + req.requestId + '/build/bundle.js', req.requestId + '.js', function (err) {
+		res.download('webpack-builder/temp/' + req.requestId + '/build/bundle.js', req.requestId + '.js', function (err) {
 			if(err) {
 				console.log("Error in download call: ", err);
 				res.status(500).send("Error in download call: ", err);
