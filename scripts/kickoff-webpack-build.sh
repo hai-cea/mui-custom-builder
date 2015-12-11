@@ -6,4 +6,4 @@ BASE_PATH='webpack-builder/temp/'
 FULL_FOLDER_PATH=$BASE_PATH$FOLDER_NAME
 
 cd $FULL_FOLDER_PATH
-webpack --config no-uglify-no-source-map.config.js
+webpack --config uglify-external-source-map.config.js
